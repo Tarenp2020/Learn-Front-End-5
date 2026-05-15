@@ -153,6 +153,7 @@ Build multi-page apps with React Router
 Submit forms
 Handle loading/error states
 Structure components into folders
+
 Week 4 — Authentication + Protected API Requests
 Main Goals
 
@@ -222,6 +223,7 @@ Store/retrieve auth token
 Make authenticated requests
 Protect routes/pages
 Organize frontend code cleanly
+
 Week 5 — Build Your Real REST API Frontend
 Main Goals
 

@@ -1,0 +1,36 @@
+body {
+    background-color: rgb(30, 74, 110);
+    font-size: 26px;
+}
+
+.wrapper {
+    width: 700px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 10px
+}
+
+header, footer {
+    background-color: rgb(30, 74, 110);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+nav {
+    background-color: #333;
+    padding: 10px;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}

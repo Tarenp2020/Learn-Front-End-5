@@ -1,0 +1,12 @@
+[
+  {
+    "title": "Portfolio Website",
+    "description": "Personal site built with Express and EJS",
+    "link": "http://localhost:3000"
+  },
+  {
+    "title": "Todo App",
+    "description": "Simple task manager project",
+    "link": "http://localhost:3000"
+  }
+]
