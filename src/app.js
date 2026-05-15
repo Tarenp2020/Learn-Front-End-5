@@ -15,11 +15,15 @@ app.use("/css", express.static(path.join(__dirname, "public/css")));
 
 // Template engine
 app.use(expressLayouts);
+app.set('layout', './layouts/full-width');
 app.set("view engine", "ejs");
 
 // Routes
-app.get("/", (req, res) => {
+app.get("", (req, res) => {
     res.render("index");
+});
+app.get("/about", (req, res) => {
+    res.render("about");
 });
 
 // Listen
