@@ -10,8 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Static Files
-app.use(express.static("public"));
-app.use("/css", express.static(path.join(__dirname, "public/css")));
+app.use(express.static(path.join(__dirname, "../public")));
 
 // Template engine
 app.use(expressLayouts);
