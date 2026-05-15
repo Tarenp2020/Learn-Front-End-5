@@ -1,0 +1,11 @@
+<h1>Projects</h1>
+
+<ul>
+    <% projects.forEach(project => { %>
+        <li>
+            <h2><%= project.title %></h2>
+            <p><%= project.description %></p>
+            <a href="<%= project.link %>">Visit</a>
+        </li>
+    <% }) %>
+</ul>

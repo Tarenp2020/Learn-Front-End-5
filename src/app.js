@@ -2,6 +2,7 @@ import express from "express";
 import expressLayouts from "express-ejs-layouts";
 import path from "path";
 import { fileURLToPath } from "url";
+import fs from "fs";
 
 const app = express();
 const port = 3000;
@@ -31,7 +32,14 @@ app.listen(port, () => {
 });
 
 
+//AI made
 
+app.get("/projects", (req, res) => {
+    const data = fs.readFileSync("data/projects.json", "utf-8");
+    const projects = JSON.parse(data);
+
+    res.render("projects", { projects });
+});
 
 // 404 handler (must be last!!)
 app.use((req, res) => {
