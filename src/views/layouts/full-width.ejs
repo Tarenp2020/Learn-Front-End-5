@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/main.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
 
-    <%- include("../partials/nav") %>
+  <%- include("../partials/nav") %>
 
-    <div class="wrapper">
-        <header>Welcome</header>
+  <div class="wrapper">
 
-        <main>
-            <%- body %>
-        </main>
-        
-        <%- include("../partials/button") %>
+    <header>Welcome</header>
 
+    <main>
+      <%- body %>
+    </main>
 
-        <footer>
-            <p>&copy; 2026 Taren Parmley</p>
-        </footer>
-    </div>
+    <%- include("../partials/button") %>
+
+    <%- include("../partials/messageDis") %>
+
+    <footer>
+      <p>&copy; 2026 Taren Parmley</p>
+    </footer>
+
+  </div>
 
 </body>
 </html>

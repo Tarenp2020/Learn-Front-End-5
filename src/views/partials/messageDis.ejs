@@ -1,0 +1,20 @@
+<script>
+  document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("dismiss")) {
+      e.target.parentElement.remove();
+    }
+  });
+</script>
+
+<h1>Notice</h1>
+
+<div id="message-container">
+  <% if (typeof messages !== "undefined") { %>
+    <% messages.forEach(msg => { %>
+      <div class="message" data-id="<%= msg.id %>">
+        <%= msg.text %>
+        <button class="dismiss">X</button>
+      </div>
+    <% }) %>
+  <% } %>
+</div>
