@@ -1,0 +1,20 @@
+
+<button id="btn"><p id="text">I want this!</p></button>
+
+<script>
+    let isWanted = true;
+
+    const text = document.getElementById('text');
+    const btn = document.getElementById('btn');
+
+    btn.addEventListener('click', () => {
+
+        if (isWanted) {
+            text.textContent = 'I dont want this.';
+        } else {
+            text.textContent = 'I want this!';
+        }
+
+        isWanted = !isWanted;
+    });
+</script>
