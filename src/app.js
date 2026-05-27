@@ -34,7 +34,7 @@ app.get("/projects", (req, res) => {
     res.render("projects", { projects });
 });
 
-app.get("views/", (req, res) => {
+app.get("/", (req, res) => {
     res.render("index", {
         messages: [
             { id: 1, text: "Welcome Home" }
@@ -42,25 +42,14 @@ app.get("views/", (req, res) => {
     });
 });
 
-app.get("/views/about", (req, res) => {
-    res.render("about", {
-        messages: [
-            { id: 1, text: "About page message" }
-        ]
-    });
+app.get("/users", (req, res) => {
+    res.render("users");
 });
 
-app.get("/views/projects", (req, res) => {
-    const data = fs.readFileSync("data/projects.json", "utf-8");
-    const projects = JSON.parse(data);
-
-    res.render("projects", {
-        projects,
-        messages: [
-            { id: 1, text: "Projects loaded successfully" }
-        ]
-    });
+app.get("/create-user", (req, res) => {
+    res.render("create-user");
 });
+
 
 // 404 handler (must be last)
 app.use((req, res) => {
