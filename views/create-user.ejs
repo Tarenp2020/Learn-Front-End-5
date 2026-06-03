@@ -1,28 +1,9 @@
 <h1>Create User</h1>
 
-<form id="userForm">
-    <input type="text" id="name" placeholder="Name" />
-    <input type="email" id="email" placeholder="Email" />
+<form method="POST" action="/create-user">
+    <input type="text" name="name" placeholder="Name" />
+    <input type="email" name="email" placeholder="Email" />
     <button type="submit">Submit</button>
 </form>
 
 <p id="message"></p>
-
-<script>
-const form = document.getElementById("userForm");
-const message = document.getElementById("message");
-
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-
-    if (!name || !email) {
-        message.textContent = "Please fill out all fields";
-        return;
-    }
-
-    message.textContent = "User submitted successfully";
-});
-</script>

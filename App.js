@@ -19,6 +19,9 @@ app.set("layout", "./layouts/full-width");
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.use(express.urlencoded({ extended: true }));
+
+
 // Routes
 // app.get("", (req, res) => {
 //     res.render("index");
@@ -29,11 +32,22 @@ app.get("/about", (req, res) => {
 });
 
 app.get("/projects", (req, res) => {
-    const data = fs.readFileSync("src/data/projects.json", "utf-8");
+    const data = fs.readFileSync(
+        path.join(__dirname, "src", "data", "projects.json"),
+        "utf-8"
+    );
+
     const projects = JSON.parse(data);
 
     res.render("projects", { projects });
 });
+
+// app.get("/projects", (req, res) => {
+//     const data = fs.readFileSync("src/data/projects.json", "utf-8");
+//     const projects = JSON.parse(data);
+
+//     res.render("projects", { projects });
+// });
 
 app.get("/", (req, res) => {
     res.render("index", {
@@ -44,12 +58,60 @@ app.get("/", (req, res) => {
 });
 
 app.get("/users", (req, res) => {
-    res.render("users");
+    const data = fs.readFileSync(
+        path.join(__dirname, "src", "data", "users.json"),
+        "utf-8"
+    );
+
+    const users = JSON.parse(data);
+
+    res.render("users", { users });
 });
 
 app.get("/create-user", (req, res) => {
     res.render("create-user");
 });
+
+app.post("/create-user", (req, res) => {
+    const { name, email } = req.body;
+
+    const filePath = path.join(__dirname, "src", "data", "users.json");
+
+    const data = fs.readFileSync(filePath, "utf-8");
+    const users = JSON.parse(data);
+
+    const newUser = {
+        id: Date.now(),
+        name,
+        email
+    };
+
+    users.push(newUser);
+
+    fs.writeFileSync(filePath, JSON.stringify(users, null, 2));
+
+    res.redirect("/users");
+});
+
+app.post("/delete-user/:id", (req, res) => {
+    const userId = Number(req.params.id);
+
+    const filePath = path.join(__dirname, "src", "data", "users.json");
+
+    const data = fs.readFileSync(filePath, "utf-8");
+    const users = JSON.parse(data);
+
+    const updatedUsers = users.filter(user => user.id !== userId);
+
+    fs.writeFileSync(
+        filePath,
+        JSON.stringify(updatedUsers, null, 2)
+    );
+
+    res.redirect("/users");
+});
+
+
 
 
 // 404 handler (must be last)
