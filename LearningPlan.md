@@ -159,148 +159,58 @@ You are ready for Week 3 if you can:
 
 ---
 
-# Week 3 — Routing, Forms, Effects, and API Calls
+# Week 3 — Express + EJS CRUD Dashboard (Rewritten Based on Your Project)
 
-## Main Goals
+## Overview
 
-Learn how React apps become real frontend applications.
+This week focuses on building a full **server-rendered CRUD application** using:
 
-### Topics
+- Node.js
+- Express.js
+- EJS templates
+- express-ejs-layouts
+- JSON file storage (no database)
+- Basic form handling
 
-- `useEffect`
-- Fetching data from APIs
-- Loading/error states
-- React Router
-- Controlled forms
-- Basic app architecture
+You are NOT using React this week.
 
----
-
-## Recommended Resources
-
-### Routing
-
-- React Router Docs
-
-### API + Effects
-
-- React `useEffect` Docs
-- MDN Fetch API Guide
-
-### Forms
-
-- React Forms Documentation
+Instead, you are building a real backend-driven web app.
 
 ---
 
-## What to Build
+# Final Project Outcome
 
-### Mini Project — “Frontend Dashboard”
+By the end of Week 3, you will have:
 
-Build a small multi-page React app.
-
-### Pages
-
-- Home
-- Users
-- Create User Form
-- About
-
-### Use a Free API
-
-- JSONPlaceholder API
-
-### Features
-
-- Fetch and display users/posts
-- Loading spinner/text
-- Error handling
-- Form with validation
-- Navigation using React Router
+- Multi-page Express app
+- EJS templating system
+- Full CRUD for users (Create, Read, Delete)
+- JSON file persistence
+- Dynamic routing
+- Form handling with POST requests
 
 ---
 
-## GitHub Requirement
-
-Add your Week 3 project work to your GitHub repository.
-
-### Suggested Structure
+# Project Structure
 
 ```txt
-week-3-react-routing-api/
-└── frontend-dashboard/
-```
-
-### Commit Expectations
-
-Commit after completing major features.
-
-Example commits:
-
-```bash
-git commit -m "Set up React Router pages"
-
-git commit -m "Fetch users from API"
-
-git commit -m "Add loading and error states"
-
-git commit -m "Build controlled user form"
-
-git commit -m "Refactor components into folders"
-```
-
-### By the End of the Week
-
-Your repository should include:
-
-- Multi-page React application
-- API integration
-- Form handling
-- Organized component structure
-- Multiple meaningful commits
-
----
-
-## Key Concepts to Practice
-
-### `useEffect`
-
-Use it for:
-
-- API calls
-- Loading data on component mount
-
----
-
-### Controlled Forms
-
-Use state for all form values.
-
----
-
-### API Flow
-
-Practice:
-
-1. Request data
-2. Store response in state
-3. Render UI
-4. Handle loading/errors
-
----
-
-## Milestone Check
-
-You are ready for Week 4 if you can:
-
-- Fetch data from an API
-- Use `useEffect` correctly
-- Build multi-page apps with React Router
-- Submit forms
-- Handle loading/error states
-- Structure components into folders
-
----
+websiteLearning/
+├── App.js
+├── data/
+│   ├── users.json
+│   └── projects.json
+├── views/
+│   ├── index.ejs
+│   ├── about.ejs
+│   ├── users.ejs
+│   ├── create-user.ejs
+│   ├── projects.ejs
+│   ├── 404.ejs
+│   └── layouts/
+│       └── full-width.ejs
+├── public/
+│   └── css/
+├── package.json
 
 # Week 4 — Authentication + Protected API Requests
 
