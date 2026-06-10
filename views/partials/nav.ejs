@@ -1,7 +1,13 @@
 <nav>
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-    <a href="/projects">Projects</a>
-    <a href="/users">Users</a>
-    <a href="/create-user">Create User</a>
+  <a href="/">Home</a>
+  <a href="/about">About</a>
+  <a href="/projects">Projects</a>
+  <a href="/users">Users</a>
+
+  <% if (!user) { %>
+    <a href="/signup">Signup</a>
+    <a href="/login">Login</a>
+  <% } else { %>
+    <span>Welcome, <%= user.email %></span>
+  <% } %>
 </nav>

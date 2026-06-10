@@ -4,6 +4,10 @@ import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
 import cookieParser from "cookie-parser";
+import { requireAuth } from "./middleware/auth.js";
+
+import jwt from "jsonwebtoken";
+
 
 const app = express();
 const port = 3000;
@@ -23,6 +27,27 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
+
+app.use((req, res, next) => {
+  const token = req.cookies.token;
+
+  res.locals.user = null;
+
+  if (token) {
+    try {
+      const decoded = jwt.verify(
+        token,
+        process.env.JWT_SECRET || "secret"
+      );
+
+      res.locals.user = decoded;
+    } catch (err) {
+      res.locals.user = null;
+    }
+  }
+
+  next();
+});
 
 
 // Routes
@@ -60,7 +85,7 @@ app.get("/", (req, res) => {
     });
 });
 
-app.get("/users", (req, res) => {
+app.get("/users", requireAuth, (req, res) => {
     const data = fs.readFileSync(
         path.join(__dirname, "src", "data", "users.json"),
         "utf-8"
@@ -100,7 +125,6 @@ app.post("/signup", async (req, res) => {
       return res.redirect("/signup");
     }
 
-    // IMPORTANT: redirect instead of showing JSON
     return res.redirect("/login");
   } catch (err) {
     console.error("Signup error:", err);
