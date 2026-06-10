@@ -83,6 +83,31 @@ app.get("/signup", (req, res) => {
   res.render("signup");
 });
 
+app.post("/signup", async (req, res) => {
+  try {
+    const response = await fetch("http://localhost:5000/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(req.body)
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.log("Signup failed:", data);
+      return res.redirect("/signup");
+    }
+
+    // IMPORTANT: redirect instead of showing JSON
+    return res.redirect("/login");
+  } catch (err) {
+    console.error("Signup error:", err);
+    return res.redirect("/signup");
+  }
+});
+
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
