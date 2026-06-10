@@ -212,33 +212,49 @@ websiteLearning/
 │   └── css/
 ├── package.json
 
-# Week 4 — Authentication + Protected API Requests
+## Week 4 — JWT Authentication Integration (Express + EJS)
 
-## Main Goals
+## Main Goal
 
-This week connects directly to your final backend/frontend integration goal.
+Connect your existing Express + EJS application to a JWT-protected API.
 
-### Topics
+By the end of the week, users should be able to:
 
-- Login forms
-- JWT/token concepts
-- Auth state management
-- Protected routes
-- Sending auth headers
-- Environment variables
+* Log in through your EJS frontend
+* Receive a JWT token from the API
+* Store the token
+* Access protected features
+* Make authenticated API requests
+* Log out
+
+---
+
+## Topics
+
+* Login forms
+* JWT authentication
+* Authentication flow
+* Protected routes
+* Authorization headers
+* API communication
+* Environment variables
 
 ---
 
 ## Recommended Resources
 
-### Authentication
+### JWT Authentication
 
-- React Authentication Patterns (LogRocket)
-- MDN Authorization Header Docs
+* JWT Introduction
+* MDN Authorization Header Documentation
 
 ### Environment Variables
 
-- Vite Env Variables Guide
+* dotenv Documentation
+
+### Fetch Requests
+
+* MDN Fetch API Documentation
 
 ---
 
@@ -246,46 +262,166 @@ This week connects directly to your final backend/frontend integration goal.
 
 ### Mini Project — Authenticated Frontend
 
+Add authentication to your existing CRUD application.
+
 Create:
 
-- Login page
-- Dashboard page
-- Logout button
-
-Mock authentication is okay if your API is not ready yet.
+* Login page
+* Logout functionality
+* Protected pages
+* Protected API requests
 
 ---
 
-## Features to Implement
+## Authentication Flow
 
-### Authentication Flow
+### Login
 
-1. User logs in
-2. API returns token
-3. Store token in `LocalStorage`
-4. Include token in requests
+1. User enters username and password
+2. Frontend sends credentials to API
+3. API returns JWT token
+4. Token is stored
+5. User is redirected to a protected page
 
-Example request flow:
+---
+
+### Authenticated Requests
+
+When accessing protected API endpoints:
 
 ```js
-fetch('/api/protected', {
+fetch(apiUrl, {
   headers: {
     Authorization: `Bearer ${token}`
   }
 })
 ```
 
+The JWT token should be included in every protected request.
+
 ---
 
-### Protected Routes
+## Features to Implement
 
-#### Unauthenticated users
+### Login Page
 
-- redirected to login
+Create:
 
-#### Authenticated users
+```txt
+views/login.ejs
+```
 
-- can access dashboard
+Features:
+
+* Username field
+* Password field
+* Login button
+* Error display for failed logins
+
+---
+
+### Login Route
+
+Create routes to:
+
+```txt
+GET /login
+POST /login
+```
+
+Responsibilities:
+
+* Display login form
+* Submit credentials to API
+* Process login response
+* Store JWT token
+
+---
+
+### Token Storage
+
+Store the JWT token after successful login.
+
+Possible approaches:
+
+* Session storage
+* Cookie storage
+* Temporary server-side storage
+
+Focus on understanding the authentication flow rather than production security.
+
+---
+
+### Protected Pages
+
+Examples:
+
+```txt
+/users
+/create-user
+/projects
+```
+
+Only allow access when a valid token exists.
+
+Unauthenticated users should be redirected to:
+
+```txt
+/login
+```
+
+---
+
+### Auth Middleware
+
+Create middleware that:
+
+1. Checks for a stored token
+2. Verifies authentication state
+3. Redirects unauthenticated users
+
+Example concept:
+
+```js
+if (!token) {
+  return res.redirect('/login');
+}
+```
+
+---
+
+### Logout
+
+Create:
+
+```txt
+GET /logout
+```
+
+Responsibilities:
+
+* Remove stored token
+* Clear authentication state
+* Redirect to login page
+
+---
+
+### Authenticated API Requests
+
+Update protected functionality to include JWT tokens.
+
+Examples:
+
+* Get users
+* Create user
+* Delete user
+* Future update operations
+
+All protected requests should include:
+
+```js
+Authorization: Bearer <token>
+```
 
 ---
 
@@ -293,54 +429,64 @@ fetch('/api/protected', {
 
 ```txt
 src/
-  components/
-  pages/
+  middleware/
+    auth.js
+
   services/
-  context/
-  hooks/
+    api.js
+
+views/
+  login.ejs
 ```
 
 ---
 
 ## GitHub Requirement
 
-Push all authentication-related work to your GitHub repository.
+Push all authentication work to your repository.
 
 ### Suggested Structure
 
 ```txt
 week-4-authentication/
-└── authenticated-frontend/
+└── jwt-api-integration/
 ```
 
 ### Commit Expectations
 
-Commit after major authentication milestones.
+Commit after major milestones.
 
 Example commits:
 
 ```bash
-git commit -m "Create login form"
+git commit -m "Add login page"
 
-git commit -m "Store auth token in localStorage"
+git commit -m "Connect login form to JWT API"
 
-git commit -m "Add protected routes"
+git commit -m "Store authentication token"
 
-git commit -m "Attach bearer token to API requests"
+git commit -m "Add authentication middleware"
 
-git commit -m "Implement logout functionality"
+git commit -m "Protect user routes"
+
+git commit -m "Add logout functionality"
+
+git commit -m "Send bearer token with API requests"
 ```
 
-### By the End of the Week
+---
+
+## By the End of the Week
 
 Your repository should demonstrate:
 
-- Authentication flow
-- Protected frontend routes
-- Token persistence
-- Authenticated API requests
-- Clean code organization
-- Multiple meaningful commits
+* JWT login flow
+* Token storage
+* Protected pages
+* Protected API requests
+* Logout functionality
+* Organized code structure
+* Multiple meaningful commits
 
 ---
 
@@ -348,11 +494,15 @@ Your repository should demonstrate:
 
 You are ready for Week 5 if you can:
 
-- Log users in
-- Store/retrieve auth token
-- Make authenticated requests
-- Protect routes/pages
-- Organize frontend code cleanly
+* Log in successfully
+* Receive a JWT token from the API
+* Store and retrieve the token
+* Access protected pages
+* Make authenticated API requests
+* Log out successfully
+* Explain the complete JWT authentication flow
+
+```
 
 ---
 
