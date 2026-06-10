@@ -3,6 +3,7 @@ import expressLayouts from "express-ejs-layouts";
 import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const port = 3000;
@@ -20,6 +21,8 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser());
 
 
 // Routes
@@ -72,13 +75,48 @@ app.get("/create-user", (req, res) => {
     res.render("create-user");
 });
 
-app.post("/login", (req, res) => {
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
+app.get("/signup", (req, res) => {
+  res.render("signup");
+});
+
+app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
-  console.log("Username:", username);
-  console.log("Password:", password);
+  try {
+    const response = await fetch("http://localhost:5000/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: username,
+        password
+      })
+    });
 
-  res.send("Login form submitted");
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.log("Login failed:", data);
+      return res.redirect("/login");
+    }
+
+    // STORE JWT IN HTTPONLY COOKIE (THIS IS THE MISSING PART)
+    res.cookie("token", data.token, {
+      httpOnly: true,
+      secure: false,   // true in production (HTTPS)
+      sameSite: "lax"
+    });
+
+    return res.redirect("/users");
+  } catch (err) {
+    console.error("Login error:", err);
+    return res.redirect("/login");
+  }
 });
 
 app.post("/create-user", (req, res) => {
