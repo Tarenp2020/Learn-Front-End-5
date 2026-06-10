@@ -8,6 +8,9 @@
     <a href="/signup">Signup</a>
     <a href="/login">Login</a>
   <% } else { %>
-    <span>Welcome, <%= user.email %></span>
+    <span>You are in:</span>
+    <form action="/logout" method="POST" style="display:inline;">
+      <button type="submit">Logout</button>
+    </form>
   <% } %>
 </nav>

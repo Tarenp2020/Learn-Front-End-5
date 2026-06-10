@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import expressLayouts from "express-ejs-layouts";
 import path from "path";
@@ -166,6 +169,11 @@ app.post("/login", async (req, res) => {
     console.error("Login error:", err);
     return res.redirect("/login");
   }
+});
+
+app.post("/logout", (req, res) => {
+  res.clearCookie("token");
+  return res.redirect("/login");
 });
 
 app.post("/create-user", (req, res) => {
