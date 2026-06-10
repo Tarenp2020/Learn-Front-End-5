@@ -72,6 +72,15 @@ app.get("/create-user", (req, res) => {
     res.render("create-user");
 });
 
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+
+  console.log("Username:", username);
+  console.log("Password:", password);
+
+  res.send("Login form submitted");
+});
+
 app.post("/create-user", (req, res) => {
     const { name, email } = req.body;
 
