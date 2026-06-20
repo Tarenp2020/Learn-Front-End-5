@@ -10,8 +10,6 @@
   <% listings.forEach(listing => { %>
     <li class="listing-card">
       <h2><%= listing.title %></h2>
-      <p><%= listing.description %></p>
-      <p>$<%= listing.price %></p>
 
       <a href="/listings/<%= listing._id %>" class="view-btn">
         View More
