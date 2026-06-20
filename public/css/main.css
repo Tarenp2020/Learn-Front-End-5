@@ -1,36 +1,184 @@
 body {
-    background-color: rgb(30, 74, 110);
-    font-size: 26px;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f6fa;
+  color: #111;
 }
 
+/* centers everything in the page */
 .wrapper {
-    width: 700px;
-    margin: 0 auto;
-    background-color: white;
-    padding: 10px
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
-header, footer {
-    background-color: rgb(30, 74, 110);
-    color: white;
-    padding: 20px;
-    text-align: center;
+/* main content styling */
+main {
+  font-size: 18px;
+  line-height: 1.6;
 }
 
-nav {
-    background-color: #333;
-    padding: 20px;
+/* header */
+header {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 15px;
+/* NAV */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 14px 24px;
+
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
 }
 
-nav a {
-    color: white;
-    text-decoration: none;
+/* left + right groups */
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* links as “pills” */
+.nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+
+  padding: 6px 12px;
+  border-radius: 999px;
+
+  transition: all 0.2s ease;
+}
+
+/* hover pop */
+.nav a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* welcome text */
+.nav-user {
+  color: white;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+/* logout button styled like a pill */
+.logout-form button {
+  background: #fb7185;
+  border: none;
+  color: white;
+
+  padding: 6px 12px;
+  border-radius: 999px;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.logout-form button:hover {
+  background: #f43f5e;
+  transform: translateY(-1px);
+}
+
+
+button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ddd;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px;
+  margin-top: 20px;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.10);
+}
+
+.create-btn {
+  display: inline-block;
+
+  padding: 10px 16px;
+  margin: 10px 0 20px;
+
+  background: #6366f1;
+  color: white;
+
+  border: none;
+  border-radius: 10px;
+
+  font-weight: 600;
+  text-decoration: none;
+
+  cursor: pointer;
+
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.create-btn:hover {
+  background: #4f46e5;
+  transform: translateY(-2px);
+}
+
+.create-btn:active {
+  transform: translateY(0px);
+}
+
+.listing-list {
+  list-style: none;
+  padding: 0;
+}
+
+.listing-card {
+  background: white;
+  padding: 16px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* secondary button */
+.view-btn {
+  display: inline-block;
+
+  margin-top: 10px;
+  padding: 6px 12px;
+
+  background: #e5e7eb;
+  color: #111;
+
+  border-radius: 8px;
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.view-btn:hover {
+  background: #d1d5db;
+  transform: translateY(-1px);
 }

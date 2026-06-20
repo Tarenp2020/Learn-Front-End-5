@@ -1,3 +1,4 @@
+import fetch from "node-fetch";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -52,6 +53,11 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  res.locals.messages = [];
+  next();
+});
+
 
 // Routes
 // app.get("", (req, res) => {
@@ -62,23 +68,45 @@ app.get("/about", (req, res) => {
     res.render("about");
 });
 
-app.get("/projects", (req, res) => {
-    const data = fs.readFileSync(
-        path.join(__dirname, "src", "data", "projects.json"),
-        "utf-8"
-    );
+app.get("/listings", async (req, res) => {
+  try {
+    const response = await fetch("http://localhost:5000/listings");
+    const data = await response.json();
 
-    const projects = JSON.parse(data);
+    console.log("LISTINGS API RESPONSE:", data);
 
-    res.render("projects", { projects });
+    const listings = data.results || [];
+
+    res.render("listings", { listings });
+  } catch (err) {
+    console.error(err);
+    res.render("listings", { listings: [] });
+  }
 });
 
-// app.get("/projects", (req, res) => {
-//     const data = fs.readFileSync("src/data/projects.json", "utf-8");
-//     const projects = JSON.parse(data);
+app.get("/listings/new", requireAuth, async (req, res) => {
+  try {
+    const response = await fetch("http://localhost:5000/categories");
+    const categories = await response.json();
 
-//     res.render("projects", { projects });
-// });
+    res.render("new-listing", { categories });
+  } catch (err) {
+    console.error(err);
+    res.render("new-listing", { categories: [] });
+  }
+});
+
+app.get("/listings/:id", async (req, res) => {
+  try {
+    const response = await fetch(`http://localhost:5000/listings/${req.params.id}`);
+    const listing = await response.json();
+
+    res.render("listing-detail", { listing });
+  } catch (err) {
+    console.error(err);
+    res.redirect("/listings");
+  }
+});
 
 app.get("/", (req, res) => {
     res.render("index", {
@@ -93,6 +121,10 @@ app.get("/users", requireAuth, (req, res) => {
         path.join(__dirname, "src", "data", "users.json"),
         "utf-8"
     );
+
+    res.locals.messages = [
+      { id: 1, text: "Users loaded successfully" }
+    ];
 
     const users = JSON.parse(data);
 
@@ -232,6 +264,57 @@ app.post("/delete-user/:id", (req, res) => {
     );
 
     res.redirect("/users");
+});
+
+app.post("/listings/new", requireAuth, async (req, res) => {
+  try {
+    const token = req.cookies.token;
+
+    const response = await fetch("http://localhost:5000/listings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(req.body)
+    });
+
+    if (!response.ok) {
+      console.log("Failed to create listing");
+      return res.redirect("/listings/new");
+    }
+
+    return res.redirect("/listings");
+  } catch (err) {
+    console.error(err);
+    return res.redirect("/listings/new");
+  }
+});
+
+app.post("/listings", requireAuth, async (req, res) => {
+  try {
+    const token = req.cookies.token;
+
+    const response = await fetch("http://localhost:5000/listings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(req.body)
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      console.log("Create listing failed:", err);
+      return res.redirect("/listings/new");
+    }
+
+    return res.redirect("/listings");
+  } catch (err) {
+    console.error(err);
+    return res.redirect("/listings/new");
+  }
 });
 
 

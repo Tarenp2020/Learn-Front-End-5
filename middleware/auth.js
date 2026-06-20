@@ -3,6 +3,8 @@ import jwt from "jsonwebtoken";
 export function requireAuth(req, res, next) {
   const token = req.cookies.token;
 
+  console.log("COOKIE TOKEN:", token);
+
   if (!token) {
     return res.redirect("/login");
   }
@@ -14,6 +16,9 @@ export function requireAuth(req, res, next) {
     );
 
     req.user = decoded;
+
+    console.log("USER:", decoded);
+
     next();
   } catch (err) {
     console.log("Invalid token");

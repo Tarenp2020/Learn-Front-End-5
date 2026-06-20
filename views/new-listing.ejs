@@ -1,0 +1,23 @@
+<!-- FILE: views/new-listing.ejs -->
+
+<h1>Create Listing</h1>
+
+<form action="/listings" method="POST">
+  <input name="title" placeholder="Title" required />
+  <br>
+  <input name="description" placeholder="Description" required />
+  <br>
+  <input name="price" type="number" placeholder="Price" required />
+<br>
+
+  <select name="category_id" required>
+  <% categories.forEach(cat => { %>
+    <option value="<%= cat._id %>">
+      <%= cat.name %>
+    </option>
+  <% }) %>
+</select>
+<br>
+
+  <button type="submit">Create</button>
+</form>
