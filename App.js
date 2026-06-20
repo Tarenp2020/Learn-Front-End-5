@@ -111,6 +111,25 @@ app.get("/signup", (req, res) => {
   res.render("signup");
 });
 
+app.get("/users/:id", requireAuth, (req, res) => {
+    const userId = Number(req.params.id);
+
+    const data = fs.readFileSync(
+        path.join(__dirname, "src", "data", "users.json"),
+        "utf-8"
+    );
+
+    const users = JSON.parse(data);
+
+    const user = users.find(user => user.id === userId);
+
+    if (!user) {
+        return res.status(404).render("404");
+    }
+
+    res.render("user", { user });
+});
+
 app.post("/signup", async (req, res) => {
   try {
     const response = await fetch("http://localhost:5000/auth/signup", {
