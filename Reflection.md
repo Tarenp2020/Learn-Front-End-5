@@ -1,14 +1,14 @@
 # AI Reflection
 
 ## What did you ask the AI to do?
-I started by asking the AI to help with the logic of viewing users one by one. Then we updated the look, and did the final API link between listings and the front page
+I asked it to help create edit fucntions, delete functions, and an new entiy for images
 
 ## What did it do well?
-it creates the code fast, and always has lots of ideas as of why something is breaking or going wrong and what to try next.
+it did greate giving me a structer to follow and as I propted it to go slow and take things one file at a time I could follow the logic.
 
 
 ## What did it get wrong or what did you have to fix?
-It kept talking about code but wouldnt tell me where the code was located so I would get kind of confused to what it was saying.
+It kept was creating strange ideas for me to do or trying to make something overly complicated. I would read through what it was suggesting I do and then feel there was a sipilar way and sugest that instead. It also was strugling with the authrorization settings and passing cookies and such. I was also confused so that took a while.
 
 ## What did you learn from the AI suggestions?
-I was able to better understand how to get lists to apper in front end and the standard way of orginizinf files, like creating a sepreate methood/file for getting the catogories to be brought over from the API. 
+What stood out to me as I worked with the AI this time was if my frontend is on port 3000 and the backend is on 5000 that can create issues with passing auth information. there is something called CONS you can install that helps with solving that comunication error so the auth passes through. I kept getting 404, 401, and 500 errors so AI helped renforce in my memory what those stand for.
