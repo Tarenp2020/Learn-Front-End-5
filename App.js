@@ -183,6 +183,11 @@ app.get("/users/:id", requireAuth, (req, res) => {
     res.render("user", { user });
 });
 
+app.get("/images", (req, res) => {
+  res.render("images");
+});
+
+
 app.post("/signup", async (req, res) => {
   try {
     const response = await fetch("http://localhost:5000/auth/signup", {

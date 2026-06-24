@@ -1,48 +1,67 @@
+<% if (!listing) { %>
+  <h1>Listing not found</h1>
+<% } else { %>
+
 <h1><%= listing.title %></h1>
 
 <p><%= listing.description %></p>
 
 <p><strong>Price:</strong> $<%= listing.price %></p>
 
-<br>
-
-<% if (user) { %>
-  <a href="/listings/<%= listing._id %>/edit" class="create-btn">
-    Edit Listing
-  </a>
-<% } %>
-<br>
-
-<% if (user) { %>
-  <button onclick="deleteListing('<%= listing._id %>')">
-    Delete Listing
-  </button>
-<% } %>
+<div id="imageContainer"></div>
 
 <br>
+
+<a href="/listings/<%= listing._id %>/edit" class="create-btn">
+  Edit Listing
+</a>
+<br>
+<button onclick="deleteListing('<%= listing._id %>')">
+  Delete Listing
+</button>
+
+<br><br>
+
+<a href="/listings" class="view-btn">Back to Listings</a>
+
+<script>
+async function loadImages() {
+  try {
+    const res = await fetch("http://localhost:5000/images/<%= listing._id %>");
+
+    if (!res.ok) return;
+
+    const images = await res.json();
+    const container = document.getElementById("imageContainer");
+
+    images.forEach(img => {
+      const el = document.createElement("img");
+      el.src = img.url;
+      el.style.width = "200px";
+      el.style.margin = "5px";
+      container.appendChild(el);
+    });
+
+  } catch (err) {
+    console.error("Image load failed:", err);
+  }
+}
+
+loadImages();
+</script>
 
 <script>
 async function deleteListing(id) {
-  const token = document.cookie
-    .split("; ")
-    .find(row => row.startsWith("token="))
-    ?.split("=")[1];
-
   const res = await fetch(`http://localhost:5000/listings/${id}`, {
-    method: "DELETE",
-    
+    method: "DELETE"
   });
 
   if (res.ok) {
     window.location.href = "/listings";
   } else {
-    const err = await res.json().catch(() => ({}));
-    console.log(err);
     alert("Delete failed");
   }
 }
 </script>
 
-<br>
-
-<a href="/listings" class="view-btn">Back to Listings</a>
+<% } %>

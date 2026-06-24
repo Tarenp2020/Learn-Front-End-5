@@ -1,0 +1,27 @@
+<h1>All Images</h1>
+
+<div id="gallery"></div>
+
+<script>
+async function loadImages() {
+  const res = await fetch("http://localhost:5000/images");
+  const images = await res.json();
+
+  const gallery = document.getElementById("gallery");
+
+  images.forEach(img => {
+    const link = document.createElement("a");
+    link.href = `/listings/${img.listing_id}`;
+
+    const image = document.createElement("img");
+    image.src = img.url;
+    image.style.width = "200px";
+    image.style.margin = "10px";
+
+    link.appendChild(image);
+    gallery.appendChild(link);
+  });
+}
+
+loadImages();
+</script>
