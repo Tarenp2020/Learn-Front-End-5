@@ -28,7 +28,10 @@ app.set("layout", "./layouts/full-width");
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+import methodOverride from "method-override";
+
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 app.use(cookieParser());
 
@@ -58,11 +61,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
-// Routes
-// app.get("", (req, res) => {
-//     res.render("index");
-// });
 
 app.get("/about", (req, res) => {
     res.render("about");
@@ -107,6 +105,29 @@ app.get("/listings/:id", async (req, res) => {
     res.redirect("/listings");
   }
 });
+
+app.get("/listings/:id/edit", requireAuth, async (req, res) => {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/listings/${req.params.id}`
+    );
+
+    const listing = await response.json();
+
+    const categoryResponse = await fetch("http://localhost:5000/categories");
+    const categories = await categoryResponse.json();
+
+    res.render("edit-listing", {
+      listing,
+      categories
+    });
+  } catch (err) {
+    console.error(err);
+    res.redirect("/listings");
+  }
+});
+
+
 
 app.get("/", (req, res) => {
     res.render("index", {
@@ -317,7 +338,35 @@ app.post("/listings", requireAuth, async (req, res) => {
   }
 });
 
+app.post("/listings/:id/edit", requireAuth, async (req, res) => {
+  try {
+    const token = req.cookies.token;
 
+    const response = await fetch(
+      `http://localhost:5000/listings/${req.params.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(req.body)
+      }
+    );
+
+    if (!response.ok) {
+      const error = await response.json();
+      console.log("Update failed:", error);
+
+      return res.redirect(`/listings/${req.params.id}/edit`);
+    }
+
+    res.redirect(`/listings/${req.params.id}`);
+  } catch (err) {
+    console.error(err);
+    res.redirect(`/listings/${req.params.id}/edit`);
+  }
+});
 
 
 // 404 handler (must be last)

@@ -4,4 +4,45 @@
 
 <p><strong>Price:</strong> $<%= listing.price %></p>
 
+<br>
+
+<% if (user) { %>
+  <a href="/listings/<%= listing._id %>/edit" class="create-btn">
+    Edit Listing
+  </a>
+<% } %>
+<br>
+
+<% if (user) { %>
+  <button onclick="deleteListing('<%= listing._id %>')">
+    Delete Listing
+  </button>
+<% } %>
+
+<br>
+
+<script>
+async function deleteListing(id) {
+  const token = document.cookie
+    .split("; ")
+    .find(row => row.startsWith("token="))
+    ?.split("=")[1];
+
+  const res = await fetch(`http://localhost:5000/listings/${id}`, {
+    method: "DELETE",
+    
+  });
+
+  if (res.ok) {
+    window.location.href = "/listings";
+  } else {
+    const err = await res.json().catch(() => ({}));
+    console.log(err);
+    alert("Delete failed");
+  }
+}
+</script>
+
+<br>
+
 <a href="/listings" class="view-btn">Back to Listings</a>

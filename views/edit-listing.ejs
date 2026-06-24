@@ -1,0 +1,50 @@
+<h1>Edit Listing</h1>
+
+<form action="/listings/<%= listing._id %>/edit" method="POST">
+
+  <label>Title</label>
+  <br>
+  <input
+    type="text"
+    name="title"
+    value="<%= listing.title %>"
+    required
+  >
+
+<br>
+  <label>Description</label>
+  <br>
+  <textarea
+    name="description"
+    required
+  ><%= listing.description %></textarea>
+
+  <br>
+  <label>Price</label>
+  <br>
+  <input
+    type="number"
+    name="price"
+    value="<%= listing.price %>"
+    required
+  >
+
+<br>
+  <label>Category</label>
+  <br>
+  <select name="category_id" required>
+    <% (categories || []).forEach(category => { %>
+          <option
+        value="<%= category._id %>"
+        <%= String(category._id) === String(listing.category_id) ? "selected" : "" %>>
+        <%= category.name %>
+      </option>
+    <% }) %>
+  </select>
+
+  <br>
+  <button type="submit">
+    Save Changes
+  </button>
+
+</form>
